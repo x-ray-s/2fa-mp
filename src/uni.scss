@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+page {
+  height: 100%;
+  @apply text-black;
+}
+
+input::placeholder {
+  @apply text-gray-400;
+}
+
+.placeholder {
+  @apply text-gray-400;
+}
