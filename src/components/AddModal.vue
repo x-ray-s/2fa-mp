@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { AuthCode } from '@/pages/index/index.vue'
 
 const props = defineProps<{
   isOpen: boolean

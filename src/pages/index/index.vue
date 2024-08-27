@@ -11,11 +11,6 @@ import AddModal from '@/components/AddModal.vue'
 import { parseOtpUri } from '@/utils/totp'
 
 const instance = getCurrentInstance()
-export interface AuthCode {
-  name: string
-  secret: string
-  issuer?: string
-}
 
 function importByData(data: string) {
   const arr = decode(data)
@@ -37,14 +32,15 @@ const progress = ref(0)
 
 function circleProgressUpdate() {
   const count = counter()
-  progress.value = ((count % 30) / 30 * 100)
+  const MAX = 30
+  progress.value = ((count % MAX) / MAX * 100)
   return setInterval(() => {
     if (progress.value >= 100) {
       const count = counter()
-      progress.value = ((count % 30) / 30 * 100)
+      progress.value = ((count % MAX) / MAX * 100)
     }
     else {
-      progress.value += 100 / 30 / 60
+      progress.value += 100 / MAX / 60
     }
   }, 1000 / 60)
 }
@@ -81,6 +77,7 @@ const isDeleteOTP = ref(false)
 const editIndex = ref<number>(0)
 
 function handleItemLongTap(index: number) {
+  uni.vibrateShort()
   isLongTap.value = true
   isEdit.value = true
   editIndex.value = index
@@ -255,7 +252,7 @@ function handleItemClick(index: number, event: MouseEvent) {
       </div>
     </div>
     <AddModal
-      :is-open="showAddModal" @close="showAddModal = false" @save="data => {
+      :is-open="showAddModal" @close="showAddModal = false" @save="(data:AuthCode) => {
         addAuthCode([data])
       }"
     />
