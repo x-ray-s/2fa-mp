@@ -174,6 +174,21 @@ function handleItemClick(index: number, event: MouseEvent) {
     activeItem.value = null
   }, 300)
 }
+
+enum Direction {
+  UP,
+  DOWN,
+}
+
+function moveItem(index: number, direction: Direction) {
+  const newIndex = direction === Direction.UP ? index - 1 : index + 1
+  if (newIndex >= 0 && newIndex < authCodes.value.length) {
+    const item = authCodes.value.splice(index, 1)[0]
+    authCodes.value.splice(newIndex, 0, item)
+    storage.set(authCodes.value)
+    editIndex.value = newIndex
+  }
+}
 </script>
 
 <template>
@@ -189,10 +204,11 @@ function handleItemClick(index: number, event: MouseEvent) {
               <h2 v-show="!isEdit" class="text-xl  text-gray-900">
                 小程序 <span class="text-gray-400">Authenticator</span>
               </h2>
-              <EditBar v-show="isEdit" :name="authCodes?.[editIndex]?.name" @esc="isEdit = false" @edit="isEditName = true" @delete="isDeleteOTP = true" />
+              <EditBar v-show="isEdit" :name="authCodes?.[editIndex]?.name" @esc="isEdit = false" @edit="isEditName = true" @delete="isDeleteOTP = true" @move="(direction) => moveItem(editIndex, direction)" />
             </div>
+
             <div class="scroll-none grow overflow-y-auto overflow-x-hidden text-base leading-6 sm:text-lg sm:leading-7">
-              <ul class="space-y-4">
+              <ul>
                 <li
                   v-for="(code, index) in authCodes" :id="`item-${index}`" :key="index" class="relative overflow-hidden p-4 pb-0"
                   :class="{ 'active ': activeItem === index }"
@@ -215,6 +231,9 @@ function handleItemClick(index: number, event: MouseEvent) {
                       left: `${feedbackCoordinate.x}px`,
                       top: `${feedbackCoordinate.y}px`,
                     }" :class="{ 'transition-all duration-300 ease-out': activeItem === index }"
+                  />
+                  <div
+                    v-show="isEdit && editIndex === index" class="item-active"
                   />
                   <div class="mt-4 h-px w-full bg-gray-200" />
                 </li>
@@ -290,6 +309,15 @@ button::after {
   transform-origin: 50% 50%;
 }
 
+.item-active {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(39, 108, 255, 0.3);
+  pointer-events: none;
+  left: 0;
+  top: 0;
+}
 .active .feedback {
   transform: scale(100);
   opacity: 1;

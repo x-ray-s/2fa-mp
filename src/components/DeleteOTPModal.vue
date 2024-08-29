@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Modal from './Modal.vue'
+
 const props = defineProps<{
   isOpen: boolean
 }>()
@@ -10,8 +12,8 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div v-if="props.isOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-    <div class="w-[80vw] max-w-md rounded-lg bg-white p-6 shadow-xl">
+  <Modal :is-open="props.isOpen" submit-text="移除账号" @close="() => emit('close')" @confirm="() => emit('confirm')">
+    <div class="content">
       <h3 class="mb-4 line-clamp-2 text-lg font-semibold text-gray-900">
         要移除 在一处改账号之前，请执行以下操作：在一处改账号之前，请执行以下操作：在一处改账号之前，请执行以下操作：在一处改账号之前，请执行以下操作：
       </h3>
@@ -27,25 +29,8 @@ const emit = defineEmits<{
         </p>
         <p>确保您可以通过其他方法生成验证码</p>
       </div>
-      <div class="flex justify-end space-x-8">
-        <view
-          class="text-sm  text-blue-600"
-          @click="emit('close')"
-        >
-          取消
-        </view>
-        <view
-          class="text-sm  text-blue-600"
-          @click="() => {
-            emit('confirm')
-            emit('close')
-          }"
-        >
-          移除账号
-        </view>
-      </div>
     </div>
-  </div>
+  </Modal>
 </template>
 
 <style scoped>
