@@ -5,6 +5,19 @@
       "style": {
         "navigationBarTitleText": "身份验证器"
       }
+    },
+    {
+      "path": "pages/export/index",
+      "style": {
+        "navigationBarTitleText": "导出账号"
+      }
+    },
+    {
+      "path" : "pages/export/qrcode",
+      "style" : 
+      {
+        "navigationBarTitleText" : "保存二维码"
+      }
     }
   ],
   "globalStyle": {

@@ -189,6 +189,12 @@ function moveItem(index: number, direction: Direction) {
     editIndex.value = newIndex
   }
 }
+
+function handleExport() {
+  uni.navigateTo({
+    url: '/pages/export/index',
+  })
+}
 </script>
 
 <template>
@@ -201,9 +207,14 @@ function moveItem(index: number, direction: Direction) {
         <div class="mx-auto h-full max-w-md ">
           <div class="flex h-full flex-col">
             <div class="space-y-4 p-4 text-base leading-6 text-gray-700 sm:text-lg sm:leading-7">
-              <h2 v-show="!isEdit" class="text-xl  text-gray-900">
-                小程序 <span class="text-gray-400">Authenticator</span>
-              </h2>
+              <div v-show="!isEdit" class="flex items-center justify-between">
+                <h2 class="text-xl  text-gray-900">
+                  小程序 <span class="text-gray-400">Authenticator</span>
+                </h2>
+                <uni-icons
+                  type="download" size="24" color="#999" @click="handleExport"
+                />
+              </div>
               <EditBar v-show="isEdit" :name="authCodes?.[editIndex]?.name" @esc="isEdit = false" @edit="isEditName = true" @delete="isDeleteOTP = true" @move="(direction) => moveItem(editIndex, direction)" />
             </div>
 
