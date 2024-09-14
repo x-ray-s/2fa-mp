@@ -47,7 +47,7 @@ function handleQrcode() {
 </script>
 
 <template>
-  <div class="flex h-full flex-col px-4 py-6 sm:py-12">
+  <div class="flex bg-white h-full flex-col px-4 py-6 sm:py-12">
     <div class="shrink-0">
       <h1 class="mb-4 text-center text-3xl">
         选择账号

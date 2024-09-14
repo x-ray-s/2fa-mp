@@ -104,7 +104,9 @@ googleauth.MigrationPayload = (function () {
   MigrationPayload.encode = function encode(message, writer) {
     if (!writer) { writer = $Writer.create() }
     if (message.otpParameters != null && message.otpParameters.length) {
-      for (var i = 0; i < message.otpParameters.length; ++i) { googleauth.MigrationPayload.OtpParameters.encode(message.otpParameters[i], writer.uint32(/* id 1, wireType 2 = */10).fork()).ldelim() }
+      for (var i = 0; i < message.otpParameters.length; ++i) {
+        googleauth.MigrationPayload.OtpParameters.encode(message.otpParameters[i], writer.uint32(/* id 1, wireType 2 = */10).fork()).ldelim()
+      }
     }
     if (message.version != null && Object.hasOwnProperty.call(message, 'version')) { writer.uint32(/* id 2, wireType 0 = */16).int32(message.version) }
     if (message.batchSize != null && Object.hasOwnProperty.call(message, 'batchSize')) { writer.uint32(/* id 3, wireType 0 = */24).int32(message.batchSize) }

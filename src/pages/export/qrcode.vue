@@ -18,7 +18,7 @@ function handleClick() {
 </script>
 
 <template>
-  <div class="h-full px-4 py-6 sm:py-12">
+  <div class="h-full bg-white px-4 py-6 sm:py-12">
     <div class="shrink-0">
       <h1 class="mb-4 text-center text-3xl">
         扫描此二维码
