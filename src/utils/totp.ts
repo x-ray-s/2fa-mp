@@ -16,6 +16,8 @@ interface OtpParams {
  * @example otpauth://totp/otplib-website:otplib-demo-user?secret=6BPYHH4FOYN2WUTJ&period=30&digits=6&algorithm=SHA1&issuer=otplib-website
  * @returns {OtpParams | null}
  */
+
+
 export function parseOtpUri(uri: string): OtpParams | null {
   try {
     const [protocol, rest] = uri.split('://')

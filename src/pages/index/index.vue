@@ -1,3 +1,4 @@
+
 <script setup lang="ts">
 import { getCurrentInstance, onMounted, onUnmounted, ref } from 'vue'
 import { decode } from '@/utils/decode'
@@ -9,12 +10,26 @@ import { storage } from '@/utils/storage'
 // import { backup } from '@/utils/export'
 import AddModal from '@/components/AddModal.vue'
 import { parseOtpUri } from '@/utils/totp'
+import {onShareAppMessage , onShareTimeline } from "@dcloudio/uni-app";
 
+onShareAppMessage(() => {
+  return {
+    title: "小程序动态码程序",
+    path: "/pages/index/index"
+  }
+})
+onShareTimeline(() => {
+  return {
+    title: "小程序动态码程序",
+    path: "/pages/index/index"
+  }
+})
 const instance = getCurrentInstance()
 
 function importByData(data: string) {
   const arr = decode(data)
   if (arr && arr.length > 0) {
+    console.log(arr)
     return arr.map((item: any) => {
       // totpsecret -> secret
       return {
@@ -46,7 +61,6 @@ function circleProgressUpdate() {
 }
 
 let intervalId: number
-
 onMounted(() => {
   const data = storage.get()
   if (data) {
@@ -195,6 +209,8 @@ function handleExport() {
     url: '/pages/export/index',
   })
 }
+
+
 </script>
 
 <template>

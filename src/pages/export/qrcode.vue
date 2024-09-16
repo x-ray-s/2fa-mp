@@ -23,9 +23,10 @@ function handleClick() {
       <h1 class="mb-4 text-center text-3xl">
         扫描此二维码
       </h1>
-      <p class="my-5">
+      <p class="mt-5">
         在您的新设备上下载 Google Authenticator 应用或微信搜索 OTP动态码验证 小程序，然后从应用内扫描此二维码。
       </p>
+      <p class="text-sm mt-2 mb-5 text-gray-600">您也可以截图保存此二维码作为备份</p>
     </div>
     <div class="flex justify-center">
       <canvas canvas-id="qrcode" class="code-item" />

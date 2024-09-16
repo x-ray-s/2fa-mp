@@ -37,9 +37,13 @@ export function decode(uri: string) {
     const buffer = uni.base64ToArrayBuffer(decodeURIComponent(data))
 
     const payload = decodeProtobuf(new Uint8Array(buffer))
-
     const accounts = payload.otpParameters.map((account: any) => {
       account.totpSecret = toBase32(account.secret)
+      // fix import from google, the name has issuer prefix
+      if (account.issuer && account.name.includes(':')) {
+        const reg = new RegExp("^" + account.issuer + ":")
+        account.name = account.name.replace(reg, '')
+      }
       return account
     })
 
