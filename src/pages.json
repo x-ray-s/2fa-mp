@@ -18,6 +18,24 @@
       {
         "navigationBarTitleText" : "保存二维码"
       }
+    },
+    {
+      "path" : "pages/manager/index",
+      "style": {
+        "navigationBarTitleText" : "密码管理器"
+      }
+    },
+    {
+      "path" : "pages/manager/add",
+      "style": {
+        "navigationBarTitleText" : "新增密码"
+      }
+    },
+    {
+      "path" : "pages/manager/setting",
+      "style": {
+        "navigationBarTitleText" : "设置"
+      }
     }
   ],
   "globalStyle": {
@@ -25,5 +43,25 @@
     "navigationBarTitleText": "weapp-tailwindcss",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "black",
+    "backgroundColor": "#F8F8F8",
+    "borderStyle": "black",
+    "selectedColor": "#2564eb",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "OTP",
+        "iconPath": "static/otp.png",
+        "selectedIconPath": "static/otp.png"
+      },
+      {
+        "pagePath": "pages/manager/index",
+        "text": "密码",
+        "iconPath": "static/padlock.png",
+        "selectedIconPath": "static/padlock.png"
+      }
+    ]
   }
 }

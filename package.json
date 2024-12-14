@@ -59,7 +59,9 @@
     "@dcloudio/uni-mp-xhs": "3.0.0-4020420240722002",
     "@dcloudio/uni-quickapp-webview": "3.0.0-4020420240722002",
     "@otplib/preset-browser": "^12.0.1",
+    "@types/crypto-js": "^4.2.2",
     "@vue/shared": "3.4.21",
+    "crypto-js": "^3.3.0",
     "pinia": "^2.2.0",
     "protobufjs": "^7.4.0",
     "uniapp-qrcode": "^1.0.2",
@@ -89,6 +91,7 @@
     "typescript": "^5.5.4",
     "unplugin-auto-import": "^0.18.2",
     "vite": "5.4.1",
+    "vitest": "^2.1.8",
     "weapp-ide-cli": "^2.0.2",
     "weapp-tailwindcss": "^3.5.0"
   }

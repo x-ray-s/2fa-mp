@@ -1,8 +1,8 @@
 const KEY = 'auth_codes'
 
 const storage = {
-  get() {
-    return uni.getStorageSync(KEY)
+  get(key = KEY) {
+    return uni.getStorageSync(key)
   },
   set(data: any) {
     uni.setStorageSync(KEY, data)

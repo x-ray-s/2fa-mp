@@ -1,6 +1,6 @@
-
 <script setup lang="ts">
 import { getCurrentInstance, onMounted, onUnmounted, ref } from 'vue'
+import { onShareAppMessage, onShareTimeline } from '@dcloudio/uni-app'
 import { decode } from '@/utils/decode'
 import EditBar from '@/components/EditBar.vue'
 import EditModal from '@/components/EditModal.vue'
@@ -10,18 +10,17 @@ import { storage } from '@/utils/storage'
 // import { backup } from '@/utils/export'
 import AddModal from '@/components/AddModal.vue'
 import { parseOtpUri } from '@/utils/totp'
-import {onShareAppMessage , onShareTimeline } from "@dcloudio/uni-app";
 
 onShareAppMessage(() => {
   return {
-    title: "小程序动态码程序",
-    path: "/pages/index/index"
+    title: '小程序动态码程序',
+    path: '/pages/index/index',
   }
 })
 onShareTimeline(() => {
   return {
-    title: "小程序动态码程序",
-    path: "/pages/index/index"
+    title: '小程序动态码程序',
+    path: '/pages/index/index',
   }
 })
 const instance = getCurrentInstance()
@@ -209,8 +208,6 @@ function handleExport() {
     url: '/pages/export/index',
   })
 }
-
-
 </script>
 
 <template>
@@ -318,10 +315,6 @@ function handleExport() {
 }
 .scroll-none::-webkit-scrollbar {
   display: none; /* For Chrome, Safari, and Opera */
-}
-
-button::after {
-  display: none;
 }
 
 .feedback {

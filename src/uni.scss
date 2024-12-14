@@ -13,3 +13,11 @@ input::placeholder {
 .placeholder {
   @apply text-gray-400;
 }
+
+.input-border {
+  border-style: solid;
+}
+
+button::after {
+  display: none;
+}
