@@ -117,7 +117,7 @@
     </view>
     <div class="my-4">
       <input v-model="search" type="text" placeholder="搜索密码"
-        class="input-border rounded-lg border border-gray-300 p-2">
+        class="input-border rounded-lg border border-gray-300 p-2" placeholder-class="placeholder">
         
         <view v-for="item in filterList" :key="item.id">
           <view class="rounded-lg bg-gray-100 shadow-sm px-2 py-3 my-4" @click="copy(showPwd(item.password))">

@@ -72,9 +72,9 @@
 <template>
   <view class="h-full bg-white px-4 py-6">
     <view class="flex flex-col gap-2 mb-2">
-      <input type="text" placeholder="账号" v-model="name" class="input-border rounded-lg border border-gray-300 p-2">
+      <input type="text" placeholder="账号" v-model="name" class="input-border rounded-lg border border-gray-300 p-2" placeholder-class="placeholder">
 
-      <input v-if="!item" type="text" placeholder="密码" v-model="password" class="input-border rounded-lg border border-gray-300 p-2">
+      <input v-if="!item" type="text" placeholder="密码" v-model="password" class="input-border rounded-lg border border-gray-300 p-2" placeholder-class="placeholder">
     </view>
 
     <view class="flex items-center flex-wrap gap-2">
@@ -83,7 +83,7 @@
         {{tag}}
       </span>
       <input type="text" placeholder="标签" v-model="tag"
-        class="rounded-full px-3 py-2 text-sm w-12 border-gray-300 border input-border">
+        class="rounded-full px-3 py-2 text-sm w-12 border-gray-300 border input-border" placeholder-class="placeholder">
 
       <button class="w-8 h-8 rounded-full bg-gray-100 flex justify-center items-center m-0" @click="addTag">
         <uni-icons type="plus" size="20" color="#666" />
