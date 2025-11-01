@@ -5,6 +5,7 @@
   import EditBar from '@/components/EditBar.vue'
   import EditModal from '@/components/EditModal.vue'
   import DeleteOTPModal from '@/components/DeleteOTPModal.vue'
+  import ConfirmModal from '@/components/ConfirmModal.vue'
   import { counter, generate } from '@/utils/2fa'
   import { storage } from '@/utils/storage'
   // import { backup } from '@/utils/export'
@@ -87,6 +88,8 @@
   const isEdit = ref(false)
   const isEditName = ref(false)
   const isDeleteOTP = ref(false)
+  const showSyncUploadConfirm = ref(false)
+  const showSyncDownloadConfirm = ref(false)
 
   const editIndex = ref<number>(0)
 
@@ -244,10 +247,15 @@
     }
   }
 
-  async function handleSync() {
+  function showSyncUploadDialog() {
     if (authCodes.value.length === 0) {
       return
     }
+    showSyncUploadConfirm.value = true
+  }
+
+  async function handleSync() {
+    showSyncUploadConfirm.value = false
     await preLogin()
     await request('/sync', {
       data: JSON.stringify(authCodes.value)
@@ -263,7 +271,12 @@
     })
   }
 
+  function showSyncDownloadDialog() {
+    showSyncDownloadConfirm.value = true
+  }
+
   async function handleDownload() {
+    showSyncDownloadConfirm.value = false
     await preLogin()
     const {data} = await request('/sync')
     if (data.success) {
@@ -271,6 +284,7 @@
         let r = JSON.parse(data.data)
         if (r.length) {
           authCodes.value = r
+          storage.set(r)
         }
         uni.showToast({
           title: "数据已同步",
@@ -300,8 +314,8 @@
                   小程序 <span class="text-gray-400">Authenticator</span>
                 </h2>
                 <div class="flex">
-                  <uni-icons v-show="authCodes.length > 0" type="cloud-upload" size="24" color="#999" class="mr-1" @click="handleSync" />
-                  <uni-icons type="cloud-download" size="24" color="#999" class="mr-1" @click="handleDownload" />
+                  <uni-icons v-show="authCodes.length > 0" type="cloud-upload" size="24" color="#999" class="mr-1" @click="showSyncUploadDialog" />
+                  <uni-icons type="cloud-download" size="24" color="#999" class="mr-1" @click="showSyncDownloadDialog" />
                   <uni-icons type="download" size="24" color="#999" @click="handleExport" />
                 </div>
 
@@ -385,6 +399,22 @@
     <EditModal :current-name="authCodes?.[editIndex]?.name" :is-open="isEditName" @close="isEditName = false"
       @save="renameHandler" />
     <DeleteOTPModal :is-open="isDeleteOTP" @close="isDeleteOTP = false" @confirm="deleteHandler" />
+    <ConfirmModal 
+      :is-open="showSyncUploadConfirm" 
+      title="同步上传"
+      message="确定要将当前数据上传到云端吗？这将覆盖云端的现有数据。"
+      confirm-text="上传"
+      @close="showSyncUploadConfirm = false" 
+      @confirm="handleSync" 
+    />
+    <ConfirmModal 
+      :is-open="showSyncDownloadConfirm" 
+      title="同步下载"
+      message="确定要从云端下载数据吗？这将覆盖本地的现有数据。"
+      confirm-text="下载"
+      @close="showSyncDownloadConfirm = false" 
+      @confirm="handleDownload" 
+    />
   </div>
 </template>
 
