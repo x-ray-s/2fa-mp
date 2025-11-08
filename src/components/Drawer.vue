@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref, watch, onMounted } from 'vue'
+
 const props = defineProps<{
   isOpen: boolean
 }>()
@@ -7,20 +9,62 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
+const isMounted = ref(false)
+const shouldShow = ref(false)
+
+onMounted(() => {
+  // 延迟一帧，确保初始渲染完成后再启用动画
+  setTimeout(() => {
+    isMounted.value = true
+    // 如果初始状态是打开的，立即显示
+    if (props.isOpen) {
+      shouldShow.value = true
+    }
+  }, 0)
+})
+
+watch(() => props.isOpen, (newVal) => {
+  if (newVal) {
+    // 打开时立即显示
+    shouldShow.value = true
+  } else if (isMounted.value) {
+    // 关闭时延迟隐藏，等待动画完成（只有在已挂载后才需要动画）
+    setTimeout(() => {
+      shouldShow.value = false
+    }, 300) // 与 transition duration 一致
+  }
+})
+
 const menuItems = [
   { id: 'transfer', label: '转移', icon: 'upload' },
   { id: 'howto', label: '运作方式', icon: 'help' },
-  { id: 'settings', label: '设置', icon: 'gear' },
+//  { id: 'settings', label: '设置', icon: 'gear' },
   { id: 'about', label: '关于', icon: 'info' },
 ]
 
 function handleItemClick(id: string) {
   console.log('Menu item clicked:', id)
-  // 这里可以添加具体的跳转或操作逻辑
-  uni.showToast({
-    title: `点击了${menuItems.find(item => item.id === id)?.label}`,
-    icon: 'none',
-  })
+  emit('close')
+  
+  if (id === 'about') {
+    uni.navigateTo({
+      url: '/pages/about/index',
+    })
+  } else if (id === 'howto') {
+    uni.navigateTo({
+      url: '/pages/howto/index',
+    })
+  } else if (id === 'transfer') {
+    uni.navigateTo({
+      url: '/pages/transfer/index',
+    })
+  } else {
+    // 其他菜单项的处理逻辑
+    uni.showToast({
+      title: `${menuItems.find(item => item.id === id)?.label}功能开发中`,
+      icon: 'none',
+    })
+  }
 }
 
 function handleBackdropClick() {
@@ -39,8 +83,10 @@ function handleBackdropClick() {
 
   <!-- Drawer 主体 -->
   <div
-    class="fixed left-0 top-0 z-50 h-full w-80 bg-white shadow-xl transition-transform duration-300"
-    :class="props.isOpen ? 'translate-x-0' : '-translate-x-full'"
+    v-if="shouldShow"
+    class="fixed left-0 top-0 z-50 h-full w-80 bg-white shadow-xl"
+    :class="isMounted ? 'transition-transform duration-300' : ''"
+    :style="{ transform: props.isOpen ? 'translateX(0)' : 'translateX(-100%)' }"
   >
     <div class="flex h-full flex-col">
       <!-- 头部 -->

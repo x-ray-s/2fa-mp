@@ -321,7 +321,6 @@
                 <div class="flex">
                   <uni-icons v-show="authCodes.length > 0" type="cloud-upload" size="24" color="#999" class="mr-1" @click="showSyncUploadDialog" />
                   <uni-icons type="cloud-download" size="24" color="#999" class="mr-1" @click="showSyncDownloadDialog" />
-                  <uni-icons type="download" size="24" color="#999" @click="handleExport" />
                 </div>
 
               </div>
