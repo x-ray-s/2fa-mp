@@ -12,6 +12,7 @@
   import AddModal from '@/components/AddModal.vue'
   import { parseOtpUri } from '@/utils/totp'
   import { request } from '@/utils/request'
+  import Drawer from '@/components/Drawer.vue'
 
   onShareAppMessage(() => {
     return {
@@ -90,6 +91,7 @@
   const isDeleteOTP = ref(false)
   const showSyncUploadConfirm = ref(false)
   const showSyncDownloadConfirm = ref(false)
+  const showDrawer = ref(false)
 
   const editIndex = ref<number>(0)
 
@@ -310,13 +312,15 @@
           <div class="flex h-full flex-col">
             <div class="space-y-4 p-4 text-base leading-6 text-gray-700 sm:text-lg sm:leading-7">
               <div v-show="!isEdit" class="flex items-center justify-between">
-                <h2 class="text-xl  text-gray-900">
-                  小程序 <span class="text-gray-400">Authenticator</span>
-                </h2>
+                <div class="flex items-center">
+                  <uni-icons type="bars" size="24" color="#666" class="mr-3 cursor-pointer" @click="showDrawer = true" />
+                  <h2 class="text-xl  text-gray-900">
+                    小程序 <span class="text-gray-400">Authenticator</span>
+                  </h2>
+                </div>
                 <div class="flex">
                   <uni-icons v-show="authCodes.length > 0" type="cloud-upload" size="24" color="#999" class="mr-1" @click="showSyncUploadDialog" />
                   <uni-icons type="cloud-download" size="24" color="#999" class="mr-1" @click="showSyncDownloadDialog" />
-                  <uni-icons type="download" size="24" color="#999" @click="handleExport" />
                 </div>
 
               </div>
@@ -415,6 +419,7 @@
       @close="showSyncDownloadConfirm = false" 
       @confirm="handleDownload" 
     />
+    <Drawer :is-open="showDrawer" @close="showDrawer = false" />
   </div>
 </template>
 

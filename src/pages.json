@@ -18,6 +18,25 @@
       {
         "navigationBarTitleText" : "保存二维码"
       }
+    },
+    {
+      "path": "pages/about/index",
+      "style": {
+        "navigationBarTitleText": "关于"
+      }
+    },
+    {
+      "path": "pages/howto/index",
+      "style": {
+        "navigationBarTitleText": "运作方式",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/transfer/index",
+      "style": {
+        "navigationBarTitleText": "转移验证码"
+      }
     }
   ],
   "globalStyle": {
